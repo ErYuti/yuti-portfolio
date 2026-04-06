@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-spotify-green: #1DB954;
+  --color-spotify-black: #080808;
+  --color-spotify-dark: #121212;
+  --color-spotify-grey: #b3b3b3;
+  --color-accent-purple: #a855f7;
+}
+
+/* Force hide cursor on everything */
+* {
+  cursor: none !important;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    /* Use standard CSS properties instead of @apply to avoid Vite errors */
+    background-color: #080808; 
+    color: white;
+    font-family: sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+  }
+}
+
+/* --- YOUR ORIGINAL FEATURES --- */
+
+/* Moving Background Gradient */
+.bg-moving-gradient {
+  background: linear-gradient(-45deg, #080808, #121212, #1db95422, #080808);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Character Hover Effect (Hero Section) */
+.char-hover {
+  @apply inline-block transition-all duration-300 cursor-none;
+}
+.char-hover:hover {
+  color: #1DB954;
+  transform: translateY(-10px) scale(1.2);
+}
+
+/* Stacked Button Style (Hero/About) */
+.btn-stack-container {
+  @apply relative inline-block;
+}
+.btn-stack-bg {
+  @apply absolute inset-0 bg-spotify-green translate-x-1.5 translate-y-1.5 rounded-full transition-transform duration-200;
+}
+.btn-stack-container:hover .btn-stack-bg {
+  @apply translate-x-0 translate-y-0;
+}
+.btn-stack-top {
+  @apply relative bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 px-10 rounded-full transition-all active:translate-x-1 active:translate-y-1;
+}
+
+/* Custom Cursor Elements */
+.cursor-dot {
+  @apply fixed top-0 left-0 w-2 h-2 bg-spotify-green rounded-full pointer-events-none z-[99999];
+  transform: translate(-50%, -50%);
+}
+.cursor-outline {
+  @apply fixed top-0 left-0 w-10 h-10 border border-spotify-green rounded-full pointer-events-none z-[99998] mix-blend-difference;
+  transform: translate(-50%, -50%);
+}
+
+/* --- NEW CONTACT SECTION STYLES --- */
+
+.purple-glow-bg {
+  background: linear-gradient(to top, rgba(168, 85, 247, 0.15), transparent);
+}
+
+.glass-pill {
+  @apply bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl;
+}
+
+/* Windows Style Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1DB954;
+}
+/* Add this to your index.css */
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Ensure the avatar stays sharp */
+img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Custom Cursor fix for footer */
+#contact button:hover ~ .cursor-outline {
+  border-color: #a855f7 !important;
+  transform: scale(1.5);
+}
