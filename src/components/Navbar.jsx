@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import yutiLogo from "../assets/yuti-logo.png"; // Make sure to have a logo image in this path
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -57,7 +58,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 group">
           <div className="w-10 h-10 rounded-full border-2 border-spotify-green overflow-hidden transition-transform group-hover:rotate-12">
             <img 
-              src="/avatar-yuti.png" 
+              src= {yutiLogo}
               alt="Logo" 
               className="w-full h-full object-cover"
             />
