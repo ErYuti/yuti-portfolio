@@ -9,6 +9,7 @@ import newslist from "../assets/NewsList.png"; // News App
 import chatbot from "../assets/Chatbotai.png";
 import shoe from "../assets/Shoe.png";
 import webDes from "../assets/WebDes.png";
+import food from "../assets/Food.png";
 
 
 const FEATURED = [
@@ -36,7 +37,7 @@ const MINI = [
   { title: "YM ChatBOT Ai", img: chatbot, live: "https://ym-chatbot-ai.netlify.app/", github: "https://github.com/ErYuti/YM-ChatBot-Ai" },
   { title: "YM Shoes WebApp", img: shoe, live: "https://ym-tailwind-demo.netlify.app/", github: "#" },
   { title: "Web Animation UI", img: webDes, live: "https://ym-webapp-proj.netlify.app/", github: "#" },
-  // { title: "YM TodoList", img: todo, live: "#", github: "#" }
+  { title: "YM TodoList", img: food, live: "https://ym-food-ordering.netlify.app/", github: "#" }
 ];
 
 const Projects = () => {

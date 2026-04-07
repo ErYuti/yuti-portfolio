@@ -66,10 +66,15 @@ const About = () => {
             </div>
 
             <div className="pt-10">
-              <a href="/Yuti_Meher_Resume.pdf" download className="btn-stack-container group w-fit">
+              <a
+                href="/Yuti Meher Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-stack-container group w-fit"
+              >
                 <div className="btn-stack-bg"></div>
                 <button className="btn-stack-top uppercase tracking-widest text-xs flex items-center gap-3">
-                  Download Resume <FaDownload className="w-3 h-3 group-hover:animate-bounce" />
+                  View Resume <FaDownload className="w-3 h-3 group-hover:animate-bounce" />
                 </button>
               </a>
             </div>
