@@ -15,10 +15,10 @@ const Contact = () => {
   const rightY = useMotionValue(0);
 
   // 👁️ Smooth motion
-  const smoothLeftX = useSpring(leftX, { stiffness: 120, damping: 12 });
-  const smoothLeftY = useSpring(leftY, { stiffness: 120, damping: 12 });
-  const smoothRightX = useSpring(rightX, { stiffness: 120, damping: 12 });
-  const smoothRightY = useSpring(rightY, { stiffness: 120, damping: 12 });
+  const smoothLeftX = useSpring(leftX, { stiffness: 50, damping: 15 });
+  const smoothLeftY = useSpring(leftY, { stiffness: 50, damping: 15 });
+  const smoothRightX = useSpring(rightX, { stiffness: 50, damping: 15 });
+  const smoothRightY = useSpring(rightY, { stiffness: 50, damping: 15 });
 
   // 👁️ Eye tracking logic
   useEffect(() => {
@@ -34,7 +34,7 @@ const Contact = () => {
         const dy = e.clientY - centerY;
 
         const angle = Math.atan2(dy, dx);
-        const MAX = 5;
+        const MAX = 2;
 
         motionX.set(Math.cos(angle) * MAX);
         motionY.set(Math.sin(angle) * MAX);
@@ -133,7 +133,7 @@ const Contact = () => {
               <div className="absolute inset-0 rounded-full bg-[#1a0f0a]" />
               <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[#3b2a22] via-[#1f140f] to-black" />
               <div className="absolute inset-[5px] rounded-full bg-black/80" />
-              <div className="absolute top-[2px] left-[3px] w-[5px] h-[5px] bg-white/70 rounded-full blur-[0.5px]" />
+              <div className="absolute top-[2px] left-[3px] w-[5px] h-[5px] bg-white/70 rounded-full blur-[0.2px]" />
               <div className="absolute bottom-[2px] right-[3px] w-[2px] h-[2px] bg-white/30 rounded-full" />
             </motion.div>
           </div>
