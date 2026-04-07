@@ -159,3 +159,28 @@ img {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* 1. The Scrollbar Width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 2. The Track (The background area) */
+::-webkit-scrollbar-track {
+  background: #080808; /* Matches your bg-spotify-black */
+}
+
+/* 3. The Thumb (The draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #222; /* A slightly lighter grey than the background */
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+/* 4. The Hover Effect (The "Spotify Green" glow) */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color); /* Uses your primary-color variable */
+  box-shadow: 0 0 10px var(--primary-color); /* Adds the AI-glow effect */
+  cursor: pointer;
+}

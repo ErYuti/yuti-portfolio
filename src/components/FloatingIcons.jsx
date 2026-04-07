@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "motion/react";
-import { 
-  FaReact, FaNodeJs, FaHtml5, FaGithub, FaJs, 
-  FaWordpress, FaGitAlt 
+import {
+  FaReact, FaNodeJs, FaHtml5, FaGithub, FaJs,
+  FaWordpress, FaGitAlt
 } from "react-icons/fa6";
-import { 
-  SiTailwindcss, SiMongodb, SiExpress, SiCanva, 
+import {
+  SiTailwindcss, SiMongodb, SiExpress, SiCanva,
   SiFilezilla,
   SiFigma,
   SiBootstrap,
@@ -19,19 +19,19 @@ const icons = [
   { Icon: SiCanva, color: "#00C4CC", pos: { top: "5%", left: "6%" }, delay: 0 },
   { Icon: VscCode, color: "#007ACC", pos: { top: "4%", left: "28%" }, delay: 0.2 },
   { Icon: FaGitAlt, color: "#F05032", pos: { top: "9%", left: "50%" }, delay: 0.4 },
-  { Icon: FaGithub, color: "#FFFFFF", pos: { top: "1%", left: "65%" }, delay: 0.1 },
-  { Icon: FaWordpress, color: "#21759B", pos: { top: "10%", left: "90%" }, delay: 0.3 },
+  { Icon: FaGithub, color: "#FFFFFF", pos: { top: "1%", left: "68%" }, delay: 0.1 },
+  { Icon: FaWordpress, color: "#21759B", pos: { top: "18%", left: "95%" }, delay: 0.3 },
 
   // NEW TOP ADDITIONS
-  { Icon: SiPostman, color: "#FF6C37", pos: { top: "18%", left: "69%" }, delay: 0.6 },
+  { Icon: SiPostman, color: "#FF6C37", pos: { top: "18%", left: "75%" }, delay: 0.6 },
   { Icon: SiMysql, color: "#4479A1", pos: { top: "63%", left: "100%" }, delay: 0.5 },
 
   // MIDDLE SIDES
   { Icon: FaReact, color: "#61DAFB", pos: { top: "20%", left: "15%" }, delay: 0.5 },
-  { Icon: FaNodeJs, color: "#339933", pos: { top: "35%", left: "75%" }, delay: 0.4 },
+  { Icon: FaNodeJs, color: "#339933", pos: { top: "33%", left: "79%" }, delay: 0.4 },
 
   { Icon: SiTailwindcss, color: "#06B6D4", pos: { top: "24%", left: "-10%" }, delay: 0.2 },
-  { Icon: SiExpress, color: "#FFFFFF", pos: { top: "38%", left: "95%" }, delay: 0.7 },
+  { Icon: SiExpress, color: "#FFFFFF", pos: { top: "39%", left: "99%" }, delay: 0.7 },
 
   // NEW MIDDLE ADDITIONS
   { Icon: SiBootstrap, color: "#7952B3", pos: { top: "45%", left: "13%" }, delay: 0.3 },
@@ -53,32 +53,32 @@ const FloatingIcons = () => {
         <motion.div
           key={i}
           className="absolute pointer-events-auto"
-          style={{ 
-            top: item.pos.top, 
-            left: item.pos.left, 
-            transform: 'translate(-50%, -50%)' 
+          style={{
+            top: item.pos.top,
+            left: item.pos.left,
+            transform: 'translate(-50%, -50%)'
           }}
           initial={{ opacity: 0, scale: 0 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             scale: 1,
             y: [0, -15, 0], // Subtle floating up and down
           }}
-          transition={{ 
+          transition={{
             opacity: { duration: 0.8, delay: item.delay },
             scale: { duration: 0.8, delay: item.delay },
-            y: { 
-              duration: 3 + item.delay, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            } 
+            y: {
+              duration: 3 + item.delay,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
           }}
         >
           <motion.div
             className="p-2 md:p-3 rounded-2xl bg-[#121212]/60 backdrop-blur-md border border-white/10 shadow-2xl transition-all"
-            whileHover={{ 
-              scale: 1.4, 
-              backgroundColor: "rgba(255, 255, 255, 0.1)", 
+            whileHover={{
+              scale: 1.4,
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderColor: item.color,
               boxShadow: `0 0 30px ${item.color}55`,
               z: 50

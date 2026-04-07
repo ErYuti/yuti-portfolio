@@ -1,102 +1,149 @@
-import React from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import React, { useRef, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { FaLinkedinIn, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa6";
 import Avatar from "../assets/3D-Avatar.png";
 
 const Contact = () => {
+  // 👁️ Eye refs
+  const leftEyeRef = useRef(null);
+  const rightEyeRef = useRef(null);
+
+  // 👁️ Motion values
+  const leftX = useMotionValue(0);
+  const leftY = useMotionValue(0);
+  const rightX = useMotionValue(0);
+  const rightY = useMotionValue(0);
+
+  // 👁️ Smooth motion
+  const smoothLeftX = useSpring(leftX, { stiffness: 120, damping: 12 });
+  const smoothLeftY = useSpring(leftY, { stiffness: 120, damping: 12 });
+  const smoothRightX = useSpring(rightX, { stiffness: 120, damping: 12 });
+  const smoothRightY = useSpring(rightY, { stiffness: 120, damping: 12 });
+
+  // 👁️ Eye tracking logic
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const updateEye = (eyeRef, motionX, motionY) => {
+        if (!eyeRef.current) return;
+
+        const rect = eyeRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+
+        const angle = Math.atan2(dy, dx);
+        const MAX = 5;
+
+        motionX.set(Math.cos(angle) * MAX);
+        motionY.set(Math.sin(angle) * MAX);
+      };
+
+      updateEye(leftEyeRef, leftX, leftY);
+      updateEye(rightEyeRef, rightX, rightY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   const socials = [
-    { icon: FaLinkedinIn, link: "https://linkedin.com/in/yuti-meher", active: true },
-    { icon: FaGithub, link: "https://github.com/ErYuti", active: false },
-    { icon: FaInstagram, link: "#", active: false },
-    { icon: FaEnvelope, link: "mailto:yutimeher@gmail.com", active: false },
+    { icon: FaLinkedinIn, link: "https://linkedin.com/in/er-yuti-m-a26519245/" },
+    { icon: FaGithub, link: "https://github.com/ErYuti" },
+    { icon: FaInstagram, link: "#" },
+    { icon: FaEnvelope, link: "mailto:yutimeher@gmail.com" },
   ];
 
-  // --- EYE TRACKING LOGIC ---
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 20, stiffness: 100 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  // Mapped movement: moves the pupil based on mouse distance from center
-  const pupilX = useTransform(smoothX, [-500, 500], [-8, 8]);
-  const pupilY = useTransform(smoothY, [-500, 500], [-8, 8]);
-
   return (
-    <section
-      id="contact"
-      className="relative pt-40 pb-0 overflow-hidden bg-spotify-black"
-      onMouseMove={(e) => {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        mouseX.set(e.clientX - centerX);
-        mouseY.set(e.clientY - centerY);
-      }}
-    >
-      <div className="absolute bottom-0 left-0 w-full h-[500px] bg-gradient-to-t from-spotify-green/10 to-transparent pointer-events-none" />
+    <section className="relative bg-black flex flex-col items-center pt-24 overflow-hidden">
 
-      <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-        {/* Main Quote */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-2xl md:text-3xl font-mono text-white/70 mb-6 tracking-tight"
-        >
-          "Learning, Living, and Leveling Up."
-        </motion.h2>
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div
+          className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[150%] h-[100%] opacity-40 blur-[120px]"
+          style={{
+            background: 'radial-gradient(circle at center, #1DB954 0%, transparent 70%)'
+          }}
+        />
+      </div>
 
-        <motion.p
-          className="text-spotify-green font-mono font-bold text-xl md:text-2xl mb-12"
-        >
-          GetInTouch();
-        </motion.p>
+      {/* CONTENT WRAPPER */}
+      <div className="relative z-10 flex flex-col items-center">
+        {/* TEXT */}
+        <div className="text-center px-6">
+          <p className="text-gray-400 font-mono text-lg tracking-widest mb-8">
+            "Learning, Living, and Leveling Up."
+          </p>
 
-        {/* Social Icons */}
-        <div className="flex justify-center items-center gap-6 mb-24">
-          {socials.map((item, i) => (
-            <motion.a
-              key={i}
-              href={item.link}
-              whileHover={{ scale: 1.1, borderColor: "#1DB954", color: "#1DB954" }}
-              className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all bg-white/5 backdrop-blur-md ${item.active ? 'border-spotify-green text-spotify-green' : 'border-white/20 text-white'}`}
-            >
-              <item.icon size={22} />
-            </motion.a>
-          ))}
+          <h2 className="font-mono text-4xl font-bold mb-12">
+            <span className="text-[#1DB954]">GetInTouch</span>
+            <span className="text-white">();</span>
+          </h2>
+
+          {/* SOCIALS */}
+          <div className="flex gap-5 mb-14 justify-center">
+            {socials.map((item, i) => (
+              <motion.a
+                key={i}
+                href={item.link}
+                target="_blank"
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.1)" }}
+                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white bg-black/40 backdrop-blur-sm"
+              >
+                <item.icon size={20} />
+              </motion.a>
+            ))}
+          </div>
         </div>
 
-        {/* --- EYE TRACKING AVATAR SECTION --- */}
-        <div className="relative w-64 md:w-80 mx-auto mt-10">
-          {/* Base Face Image (No Pupils) */}
-          <img
-            src={Avatar}
-            alt="Avatar"
-            className="w-full relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-          />
+        {/* AVATAR */}
+        <div className="relative w-72 md:w-[420px]">
+          <img src={Avatar} alt="Avatar" className="w-full" />
 
-          {/* LEFT PUPIL */}
-          <motion.div
-            style={{ x: pupilX, y: pupilY }}
-            className="absolute w-2.5 h-2.5 md:w-4 md:h-4 bg-black rounded-full z-20"
-            // If they are looking "inward" (cross-eyed), increase the 'left' value for the right eye
-            // and decrease the 'left' value for the left eye.
-            style={{ top: "31%", left: "37.5%", x: pupilX, y: pupilY }}
-          />
+          {/* LEFT EYE (ORIGINAL STYLING) */}
+          <div
+            ref={leftEyeRef}
+            className="absolute top-[32.4%] left-[37.5%] w-[26px] h-[16px]
+            rounded-full overflow-hidden flex items-center justify-center
+            bg-gradient-to-b from-[#cbb9a3]/60 to-[#a89278]/40"
+          >
+            <motion.div
+              style={{ x: smoothLeftX, y: smoothLeftY }}
+              className="relative w-4 h-4"
+            >
+              <div className="absolute inset-0 rounded-full bg-[#1a0f0a]" />
+              <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[#3b2a22] via-[#1f140f] to-black" />
+              <div className="absolute inset-[5px] rounded-full bg-black/80" />
+              <div className="absolute top-[2px] left-[3px] w-[5px] h-[5px] bg-white/70 rounded-full blur-[0.5px]" />
+              <div className="absolute bottom-[2px] right-[3px] w-[2px] h-[2px] bg-white/30 rounded-full" />
+            </motion.div>
+          </div>
 
-          {/* RIGHT PUPIL */}
-          <motion.div
-            style={{ x: pupilX, y: pupilY }}
-            className="absolute w-2.5 h-2.5 md:w-4 md:h-4 bg-black rounded-full z-20"
-            style={{ top: "31%", left: "50%", x: pupilX, y: pupilY }}
-          />
-
+          {/* RIGHT EYE (ORIGINAL STYLING) */}
+          <div
+            ref={rightEyeRef}
+            className="absolute top-[31.7%] left-[52.3%] w-[26px] h-[16px]
+            rounded-full overflow-hidden flex items-center justify-center
+            bg-gradient-to-b from-[#cbb9a3]/60 to-[#a89278]/40"
+          >
+            <motion.div
+              style={{ x: smoothRightX, y: smoothRightY }}
+              className="relative w-4 h-4"
+            >
+              <div className="absolute inset-0 rounded-full bg-[#1a0f0a]" />
+              <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-[#3b2a22] via-[#1f140f] to-black" />
+              <div className="absolute inset-[5px] rounded-full bg-black/80" />
+              <div className="absolute top-[2px] left-[3px] w-[5px] h-[5px] bg-white/70 rounded-full blur-[0.5px]" />
+              <div className="absolute bottom-[2px] right-[3px] w-[2px] h-[2px] bg-white/30 rounded-full" />
+            </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-black py-8 border-t border-white/5 relative z-20 mt-20">
-        <p className="text-center text-white/40 font-mono text-[10px] tracking-widest uppercase">
-          Empowering the web with <span className="text-spotify-green font-bold">React</span> and <span className="text-spotify-green font-bold">JavaScript</span>
+      {/* FOOTER */}
+      <footer className="w-full border-t border-white/5 py-8 bg-black z-20">
+        <p className="text-center font-mono text-[13px] tracking-wider text-gray-500">
+          Empowering the web with React and JavaScript
         </p>
       </footer>
     </section>

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "motion/react";
-import { 
-  FaDownload, FaUserAstronaut, FaLightbulb, 
-  FaTrophy, FaCameraRetro, FaEarthAmericas, FaPalette, 
+import {
+  FaDownload, FaUserAstronaut, FaLightbulb,
+  FaTrophy, FaCameraRetro, FaEarthAmericas, FaPalette,
   FaFeatherPointed, FaGraduationCap, FaCheck, FaBriefcase,
   FaBuilding, FaCompass, FaFigma, FaLaptopCode
 } from "react-icons/fa6";
@@ -33,19 +33,19 @@ const About = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-6 mb-20">
-          <AnimatedText 
-            text="</AboutMe>" 
-            className="text-5xl md:text-7xl font-black italic tracking-tighter" 
+          <AnimatedText
+            text="</AboutMe>"
+            className="text-5xl md:text-7xl font-black italic tracking-tighter"
           />
-          <motion.div 
-            initial={{ width: 0 }} 
-            whileInView={{ width: "100%" }} 
-            className="h-[2px] bg-gradient-to-r from-spotify-green to-transparent flex-1 opacity-30" 
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            className="h-[2px] bg-gradient-to-r from-spotify-green to-transparent flex-1 opacity-30"
           />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           {/* CARD 1: WHO I AM */}
           <BentoCard className="lg:col-span-8 flex flex-col justify-between" delay={0.1}>
             <div>
@@ -56,14 +56,15 @@ const About = () => {
                 <h3 className="text-2xl font-bold tracking-tight text-white">Who I Am</h3>
               </div>
               <p className="text-spotify-grey text-base md:text-lg leading-relaxed mb-6">
-                I’m <span className="text-white font-bold">Yuti Meher</span>, a highly motivated <span className="text-spotify-green">Full Stack Web Developer</span> from Mumbai. 
-                I specialize in building production-ready applications using the <span className="text-white">MERN stack</span> and modern UI frameworks.
+                I’m <span className="text-white font-bold">Yuti Meher</span>, a highly motivated <span className="text-spotify-green">Full Stack Web Developer</span>.
+                I specialize in building scalable web architectures using the <span className="text-white">MERN stack</span>, focusing on high-performance API design and seamless client-side integration.
               </p>
               <p className="text-spotify-grey text-base md:text-lg leading-relaxed">
-                With a background in <span className="text-white">Electronics & Telecommunication</span>, I bridge the gap between complex engineering logic and intuitive user experiences.
+                By leveraging my engineering background, I architect <span className="text-white">robust backend systems</span> and <span className="text-white">dynamic interfaces</span>, bridging the gap between raw data processing and intuitive, user-centric web applications.
               </p>
+
             </div>
-            
+
             <div className="pt-10">
               <a href="/Yuti_Meher_Resume.pdf" download className="btn-stack-container group w-fit">
                 <div className="btn-stack-bg"></div>
@@ -106,53 +107,63 @@ const About = () => {
               </div>
               <h3 className="text-2xl font-bold tracking-tight text-white">Professional Journey</h3>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
-              {/* Vertical line for desktop */}
+
+            <div className="relative space-y-12 md:space-y-16">
+              {/* Central Vertical Line (Visible on desktop) */}
               <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
-              
+
               {[
                 {
                   role: "Software Research Developer",
                   company: "ThinkAerial Autonomous Systems",
                   duration: "July 2025 – Present",
-                  desc: "Developed production-ready MERN apps, GIS platforms, and secure recruitment systems."
+                  desc: "Architecting scalable MERN applications, high-performance GIS platforms, and secure full-stack recruitment infrastructure."
                 },
                 {
                   role: "Software Web Developer Intern",
                   company: "OTET Infosystems",
                   duration: "7 Months",
-                  desc: "Developed 10+ responsive websites via WordPress and React.js with FTP deployments."
+                  desc: "Engineered 10+ responsive web solutions using React.js and WordPress with optimized CI/CD and FTP deployments."
                 },
                 {
                   role: "Trainee Research Engineer",
                   company: "Adani Dahanu Thermal Power",
                   duration: "1 Month",
-                  desc: "System analysis and process optimization in large-scale engineering operations."
+                  desc: "Automated system analysis and process optimization through data-driven engineering models."
                 },
                 {
                   role: "Operational Trainee Engineer",
                   company: "P.M. Electro-Auto Pvt. Ltd",
                   duration: "40 Days",
-                  desc: "Troubleshooting and operational analysis, strengthening problem-solving skills."
+                  desc: "Applied analytical troubleshooting to complex industrial systems, enhancing operational efficiency."
                 }
               ].map((exp, i) => (
-                <div key={i} className="relative pl-8 md:pl-0 group/item">
-                  <div className={`md:flex flex-col ${i % 2 === 0 ? 'md:items-end md:text-right md:pr-12' : 'md:items-start md:text-left md:pl-12'}`}>
-                    <span className="text-[10px] font-mono text-spotify-green bg-spotify-green/10 px-2 py-1 rounded mb-2 inline-block italic">
-                      {exp.duration}
-                    </span>
-                    <h4 className="text-white font-bold text-lg">{exp.role}</h4>
-                    <p className="text-spotify-green/80 text-sm font-medium mb-2 flex items-center gap-2 justify-end">
-                      <FaBuilding size={12} /> {exp.company}
-                    </p>
-                    <p className="text-spotify-grey text-sm leading-relaxed max-w-md">
-                      {exp.desc}
-                    </p>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.15 }}
+                  className="relative group/item"
+                >
+                  <div className={`md:grid md:grid-cols-2 gap-8 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+                    {/* Timeline Content */}
+                    <div className={`${i % 2 === 0 ? 'md:text-right' : 'md:col-start-2'}`}>
+                      <span className="text-[10px] font-mono text-spotify-green bg-spotify-green/10 px-2 py-1 rounded inline-block mb-2">
+                        {exp.duration}
+                      </span>
+                      <h4 className="text-white font-bold text-lg">{exp.role}</h4>
+                      <p className="text-spotify-green/80 text-sm font-medium mb-2 flex items-center gap-2 md:justify-end">
+                        <FaBuilding size={12} /> {exp.company}
+                      </p>
+                      <p className="text-spotify-grey text-sm leading-relaxed">
+                        {exp.desc}
+                      </p>
+                    </div>
                   </div>
-                  {/* Circle indicator on the line */}
-                  <div className="absolute left-0 md:left-1/2 top-1 md:-translate-x-1/2 w-4 h-4 rounded-full bg-spotify-dark border-2 border-spotify-green group-hover/item:scale-125 transition-transform" />
-                </div>
+
+                  {/* Center Bullet Point */}
+                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 w-4 h-4 rounded-full bg-spotify-black border-2 border-spotify-green shadow-[0_0_15px_rgba(29,185,84,0.5)] group-hover/item:scale-125 transition-transform" />
+                </motion.div>
               ))}
             </div>
           </BentoCard>
@@ -208,10 +219,10 @@ const About = () => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { icon: FaEarthAmericas, text: "Traveling" },
-                { icon: FaCameraRetro, text: "Moments" },
-                { icon: FaPalette, text: "Sketching" },
-                { icon: FaFeatherPointed, text: "Poetry" }
+                { icon: FaEarthAmericas, text: "Exploring Places" },
+                { icon: FaCameraRetro, text: "Photography & Videography" },
+                { icon: FaPalette, text: "Painting & Sketching" },
+                { icon: FaBriefcase, text: "Tech Exploration" }
               ].map((h, i) => (
                 <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-spotify-green/20 transition-all">
                   <h.icon className="text-spotify-green" />
@@ -226,7 +237,7 @@ const About = () => {
 
         </div>
       </div>
-      
+
       <style jsx>{`
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
