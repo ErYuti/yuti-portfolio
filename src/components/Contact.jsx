@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { motion, useSpring, useMotionValue, useTransform } from "motion/react";
+import React from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { FaLinkedinIn, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa6";
+import Avatar from "../assets/3D-Avatar.png";
 
 const Contact = () => {
   const socials = [
@@ -10,40 +11,33 @@ const Contact = () => {
     { icon: FaEnvelope, link: "mailto:yutimeher@gmail.com", active: false },
   ];
 
-  // --- 3D EYE TRACKING LOGIC ---
+  // --- EYE TRACKING LOGIC ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 150 };
+  const springConfig = { damping: 20, stiffness: 100 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  const rotateX = useTransform(smoothY, [-500, 500], [15, -15]);
-  const rotateY = useTransform(smoothX, [-500, 500], [-15, 15]);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const x = e.clientX - window.innerWidth / 2;
-      const y = e.clientY - window.innerHeight / 2;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // Mapped movement: moves the pupil based on mouse distance from center
+  const pupilX = useTransform(smoothX, [-500, 500], [-8, 8]);
+  const pupilY = useTransform(smoothY, [-500, 500], [-8, 8]);
 
   return (
-    <section id="contact" className="relative pt-40 pb-0 overflow-hidden bg-spotify-black">
-      {/* Background Neon Glow (Matched to your Spotify Green) */}
+    <section
+      id="contact"
+      className="relative pt-40 pb-0 overflow-hidden bg-spotify-black"
+      onMouseMove={(e) => {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        mouseX.set(e.clientX - centerX);
+        mouseY.set(e.clientY - centerY);
+      }}
+    >
       <div className="absolute bottom-0 left-0 w-full h-[500px] bg-gradient-to-t from-spotify-green/10 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
         {/* Main Quote */}
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-2xl md:text-3xl font-mono text-white/70 mb-6 tracking-tight"
@@ -51,66 +45,56 @@ const Contact = () => {
           "Learning, Living, and Leveling Up."
         </motion.h2>
 
-        {/* Function Call Subtitle */}
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+        <motion.p
           className="text-spotify-green font-mono font-bold text-xl md:text-2xl mb-12"
         >
           GetInTouch();
         </motion.p>
 
-        {/* Social Icons (Circles) */}
+        {/* Social Icons */}
         <div className="flex justify-center items-center gap-6 mb-24">
           {socials.map((item, i) => (
-            <div key={i} className="relative flex items-center justify-center">
-              {/* The Blue/Green Dot for 'Active' link like your image */}
-              {item.active && (
-                <div className="absolute -left-10 w-6 h-6 rounded-full border border-spotify-green flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 bg-spotify-green rounded-full shadow-[0_0_8px_#1DB954]" />
-                </div>
-              )}
-              
-              <motion.a
-                href={item.link}
-                whileHover={{ scale: 1.1, borderColor: "#1DB954", color: "#1DB954" }}
-                className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white transition-all bg-white/5 backdrop-blur-md"
-              >
-                <item.icon size={22} />
-              </motion.a>
-            </div>
+            <motion.a
+              key={i}
+              href={item.link}
+              whileHover={{ scale: 1.1, borderColor: "#1DB954", color: "#1DB954" }}
+              className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all bg-white/5 backdrop-blur-md ${item.active ? 'border-spotify-green text-spotify-green' : 'border-white/20 text-white'}`}
+            >
+              <item.icon size={22} />
+            </motion.a>
           ))}
         </div>
 
-        {/* 3D AVATAR (Eyes follow cursor) */}
-        <div className="relative flex justify-center mt-10" style={{ perspective: "1000px" }}>
-          <motion.div 
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            initial={{ y: 150 }}
-            whileInView={{ y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="w-72 md:w-96 cursor-none"
-          >
-            <img 
-              src="/avatar-yuti.png" 
-              alt="Avatar Look" 
-              className="w-full h-auto drop-shadow-[0_-30px_60px_rgba(29,185,84,0.2)]"
-            />
-          </motion.div>
+        {/* --- EYE TRACKING AVATAR SECTION --- */}
+        <div className="relative w-64 md:w-80 mx-auto mt-10">
+          {/* Base Face Image (No Pupils) */}
+          <img
+            src={Avatar}
+            alt="Avatar"
+            className="w-full relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          />
+
+          {/* LEFT PUPIL */}
+          <motion.div
+            style={{ x: pupilX, y: pupilY }}
+            className="absolute w-2.5 h-2.5 md:w-4 md:h-4 bg-black rounded-full z-20"
+            // If they are looking "inward" (cross-eyed), increase the 'left' value for the right eye
+            // and decrease the 'left' value for the left eye.
+            style={{ top: "31%", left: "37.5%", x: pupilX, y: pupilY }}
+          />
+
+          {/* RIGHT PUPIL */}
+          <motion.div
+            style={{ x: pupilX, y: pupilY }}
+            className="absolute w-2.5 h-2.5 md:w-4 md:h-4 bg-black rounded-full z-20"
+            style={{ top: "31%", left: "50%", x: pupilX, y: pupilY }}
+          />
+
         </div>
       </div>
 
-      {/* Vertical 'BACK TO TOP' Button */}
-      <button 
-        onClick={scrollToTop}
-        className="fixed bottom-24 right-4 md:right-8 z-[60] text-[10px] font-mono tracking-[0.5em] uppercase text-white/30 hover:text-white transition-all rotate-90 origin-right flex items-center gap-4 cursor-none"
-      >
-        <span className="w-10 h-[1px] bg-white/20"></span>
-        BACK TO TOP
-      </button>
-
-      {/* Clean Bottom Footer Bar */}
-      <footer className="bg-black py-8 border-t border-white/5 relative z-20">
+      {/* Footer */}
+      <footer className="bg-black py-8 border-t border-white/5 relative z-20 mt-20">
         <p className="text-center text-white/40 font-mono text-[10px] tracking-widest uppercase">
           Empowering the web with <span className="text-spotify-green font-bold">React</span> and <span className="text-spotify-green font-bold">JavaScript</span>
         </p>

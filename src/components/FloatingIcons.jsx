@@ -5,29 +5,45 @@ import {
   FaWordpress, FaGitAlt 
 } from "react-icons/fa6";
 import { 
-  SiTailwindcss, SiMongodb, SiExpress, SiCanva 
+  SiTailwindcss, SiMongodb, SiExpress, SiCanva, 
+  SiFilezilla,
+  SiFigma,
+  SiBootstrap,
+  SiPostman,
+  SiMysql
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 
 const icons = [
   // THE TOP ARC (180 Degrees spread)
-  { Icon: SiCanva, color: "#00C4CC", pos: { top: "8%", left: "12%" }, delay: 0 },
-  { Icon: VscCode, color: "#007ACC", pos: { top: "2%", left: "32%" }, delay: 0.2 },
-  { Icon: FaGitAlt, color: "#F05032", pos: { top: "-2%", left: "50%" }, delay: 0.4 },
-  { Icon: FaGithub, color: "#FFFFFF", pos: { top: "2%", left: "68%" }, delay: 0.1 },
-  { Icon: FaWordpress, color: "#21759B", pos: { top: "8%", left: "88%" }, delay: 0.3 },
-  
+  { Icon: SiCanva, color: "#00C4CC", pos: { top: "5%", left: "6%" }, delay: 0 },
+  { Icon: VscCode, color: "#007ACC", pos: { top: "4%", left: "28%" }, delay: 0.2 },
+  { Icon: FaGitAlt, color: "#F05032", pos: { top: "9%", left: "50%" }, delay: 0.4 },
+  { Icon: FaGithub, color: "#FFFFFF", pos: { top: "1%", left: "65%" }, delay: 0.1 },
+  { Icon: FaWordpress, color: "#21759B", pos: { top: "10%", left: "90%" }, delay: 0.3 },
+
+  // NEW TOP ADDITIONS
+  { Icon: SiPostman, color: "#FF6C37", pos: { top: "18%", left: "69%" }, delay: 0.6 },
+  { Icon: SiMysql, color: "#4479A1", pos: { top: "63%", left: "100%" }, delay: 0.5 },
+
   // MIDDLE SIDES
-  { Icon: FaReact, color: "#61DAFB", pos: { top: "28%", left: "5%" }, delay: 0.5 },
-  { Icon: FaNodeJs, color: "#339933", pos: { top: "28%", left: "95%" }, delay: 0.4 },
-  
-  { Icon: SiTailwindcss, color: "#06B6D4", pos: { top: "50%", left: "0%" }, delay: 0.2 },
-  { Icon: SiExpress, color: "#FFFFFF", pos: { top: "45%", left: "100%" }, delay: 0.7 },
-  
+  { Icon: FaReact, color: "#61DAFB", pos: { top: "20%", left: "15%" }, delay: 0.5 },
+  { Icon: FaNodeJs, color: "#339933", pos: { top: "35%", left: "75%" }, delay: 0.4 },
+
+  { Icon: SiTailwindcss, color: "#06B6D4", pos: { top: "24%", left: "-10%" }, delay: 0.2 },
+  { Icon: SiExpress, color: "#FFFFFF", pos: { top: "38%", left: "95%" }, delay: 0.7 },
+
+  // NEW MIDDLE ADDITIONS
+  { Icon: SiBootstrap, color: "#7952B3", pos: { top: "45%", left: "13%" }, delay: 0.3 },
+  { Icon: SiFigma, color: "#F24E1E", pos: { top: "60%", left: "-3%" }, delay: 0.6 },
+
   // LOWER SIDES
   { Icon: FaHtml5, color: "#E34F26", pos: { top: "72%", left: "10%" }, delay: 0.6 },
-  { Icon: SiMongodb, color: "#47A248", pos: { top: "60%", left: "95%" }, delay: 0.3 },
-  { Icon: FaJs, color: "#F7DF1E", pos: { top: "72%", left: "80%" }, delay: 0.5 },
+  { Icon: SiMongodb, color: "#47A248", pos: { top: "54%", left: "82%" }, delay: 0.3 },
+  { Icon: FaJs, color: "#F7DF1E", pos: { top: "75%", left: "80%" }, delay: 0.5 },
+
+  // NEW LOWER ADDITIONS
+  { Icon: SiFilezilla, color: "#BF0000", pos: { top: "42%", left: "-9%" }, delay: 0.4 },
 ];
 
 const FloatingIcons = () => {

@@ -1,16 +1,37 @@
 import React from "react";
 import { motion } from "motion/react";
-import { FaDownload, FaCode, FaRocket, FaLightbulb } from "react-icons/fa6";
-import { AnimatedText, TiltCard } from "./HelperComponents";
+import { 
+  FaDownload, FaUserAstronaut, FaLightbulb, 
+  FaTrophy, FaCameraRetro, FaEarthAmericas, FaPalette, 
+  FaFeatherPointed, FaGraduationCap, FaCheck, FaBriefcase,
+  FaBuilding, FaCompass, FaFigma, FaLaptopCode
+} from "react-icons/fa6";
+import { SiCanva } from "react-icons/si";
+import { AnimatedText } from "./HelperComponents";
+
+// Reusable animated card component for the "Bento Box" layout
+const BentoCard = ({ children, className, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    className={`group relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-spotify-green/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(29,185,84,0.15)] ${className}`}
+  >
+    <div className="absolute -inset-full bg-gradient-to-r from-transparent via-spotify-green/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-1000 -z-10" />
+    {children}
+  </motion.div>
+);
 
 const About = () => {
   return (
     <section id="about" className="py-40 px-6 relative overflow-hidden bg-spotify-black">
       {/* Background Decorative Glow */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-spotify-green/5 blur-[150px] rounded-full -z-10" />
+      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-spotify-green/5 blur-[150px] rounded-full -z-10" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-spotify-green/5 blur-[150px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">
-        {/* Header with Line Effect */}
+        {/* Header */}
         <div className="flex items-center gap-6 mb-20">
           <AnimatedText 
             text="</AboutMe>" 
@@ -23,98 +44,198 @@ const About = () => {
           />
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          {/* LEFT SIDE: Content */}
-          <motion.div 
-            className="lg:col-span-7 space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="space-y-6 text-spotify-grey text-lg md:text-xl leading-relaxed">
-              <p className="border-l-4 border-spotify-green pl-6 py-2 bg-white/5 rounded-r-2xl">
-                I’m a dedicated <span className="text-white font-bold">Full Stack Developer</span> focused on building dynamic, 
-                user-friendly web applications. My journey in development is driven by a passion for 
-                high-performance logic and <span className="text-spotify-green">reusable architecture</span>.
-              </p>
-              
-              <p>
-                Whether it's processing 50GB geospatial datasets or crafting pixel-perfect 
-                UIs, my goal is to transform complex ideas into intuitive digital experiences 
-                that engage users effectively.
-              </p>
-
-              {/* Quick Info Grid */}
-              <div className="grid grid-cols-2 gap-4 pt-6">
-                {[
-                  { icon: FaCode, text: "Clean Code" },
-                  { icon: FaRocket, text: "Fast Performance" },
-                  { icon: FaLightbulb, text: "Problem Solver" },
-                  { icon: FaDownload, text: "Ready to Deploy" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-sm font-mono text-white/60">
-                    <item.icon className="text-spotify-green" />
-                    {item.text}
-                  </div>
-                ))}
+          {/* CARD 1: WHO I AM */}
+          <BentoCard className="lg:col-span-8 flex flex-col justify-between" delay={0.1}>
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-spotify-green/10 flex items-center justify-center text-spotify-green">
+                  <FaUserAstronaut size={24} />
+                </div>
+                <h3 className="text-2xl font-bold tracking-tight text-white">Who I Am</h3>
               </div>
+              <p className="text-spotify-grey text-base md:text-lg leading-relaxed mb-6">
+                I’m <span className="text-white font-bold">Yuti Meher</span>, a highly motivated <span className="text-spotify-green">Full Stack Web Developer</span> from Mumbai. 
+                I specialize in building production-ready applications using the <span className="text-white">MERN stack</span> and modern UI frameworks.
+              </p>
+              <p className="text-spotify-grey text-base md:text-lg leading-relaxed">
+                With a background in <span className="text-white">Electronics & Telecommunication</span>, I bridge the gap between complex engineering logic and intuitive user experiences.
+              </p>
             </div>
-
-            {/* THE STACKED RESUME BUTTON */}
-            <div className="pt-8">
-              <a href="/resume.pdf" download className="btn-stack-container">
+            
+            <div className="pt-10">
+              <a href="/Yuti_Meher_Resume.pdf" download className="btn-stack-container group w-fit">
                 <div className="btn-stack-bg"></div>
                 <button className="btn-stack-top uppercase tracking-widest text-xs flex items-center gap-3">
-                  Download Resume <FaDownload className="w-3 h-3" />
+                  Download Resume <FaDownload className="w-3 h-3 group-hover:animate-bounce" />
                 </button>
               </a>
             </div>
-          </motion.div>
+          </BentoCard>
 
-          {/* RIGHT SIDE: Unique Image Presentation */}
-          <div className="lg:col-span-5 relative group">
-            <TiltCard>
-              <div className="relative z-10">
-                {/* Main Image Frame */}
-                <div className="relative rounded-[2rem] overflow-hidden border-4 border-white/10 aspect-[4/5] shadow-2xl">
-                  <img 
-                    src="/your-photo.jpg" // Replace with your actual photo path
-                    alt="About Yuti" 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-                  />
-                  
-                  {/* Glass Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-spotify-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                    <p className="text-spotify-green font-mono text-sm uppercase tracking-widest">Available for Hire</p>
-                  </div>
-                </div>
-
-                {/* Floating Decorative Elements */}
-                <motion.div 
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-6 -right-6 w-24 h-24 bg-spotify-green/20 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center justify-center -z-10"
-                >
-                  <FaCode className="text-spotify-green text-3xl" />
-                </motion.div>
-
-                <motion.div 
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute -bottom-10 -left-10 p-6 glass-pill border border-white/20 hidden md:block"
-                >
-                  <p className="text-xs font-bold tracking-tighter uppercase">50+ Projects Completed</p>
-                </motion.div>
+          {/* CARD 2: EDUCATION */}
+          <BentoCard className="lg:col-span-4" delay={0.2}>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white">
+                <FaGraduationCap size={24} />
               </div>
-            </TiltCard>
+              <h3 className="text-xl font-bold tracking-tight text-white">Education</h3>
+            </div>
+            <div className="space-y-6">
+              {[
+                { title: "B.Tech - E&TC", school: "SVKM's Dwarkadas J. Sanghvi", result: "8.61 CGPA" },
+                { title: "Diploma - E&TC", school: "St. John College", result: "92.12%" },
+                { title: "SSC", school: "Bhuvanesh Kirtane Vidyalaya", result: "82.20%" }
+              ].map((edu, idx) => (
+                <div key={idx} className="group/edu">
+                  <h4 className="text-spotify-green font-bold text-sm">{edu.title}</h4>
+                  <p className="text-white/70 text-xs mt-1 leading-tight">{edu.school}</p>
+                  <p className="text-spotify-grey text-[10px] font-mono mt-1">{edu.result}</p>
+                  {idx !== 2 && <div className="w-full h-[1px] bg-white/5 mt-4" />}
+                </div>
+              ))}
+            </div>
+          </BentoCard>
 
-            {/* Neon Shadow Effect */}
-            <div className="absolute inset-0 bg-spotify-green/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          </div>
+          {/* CARD 3: PROFESSIONAL EXPERIENCE (Unique Large Card) */}
+          <BentoCard className="lg:col-span-12" delay={0.3}>
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-12 rounded-full bg-spotify-green/10 flex items-center justify-center text-spotify-green">
+                <FaBriefcase size={22} />
+              </div>
+              <h3 className="text-2xl font-bold tracking-tight text-white">Professional Journey</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+              {/* Vertical line for desktop */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
+              
+              {[
+                {
+                  role: "Software Research Developer",
+                  company: "ThinkAerial Autonomous Systems",
+                  duration: "July 2025 – Present",
+                  desc: "Developed production-ready MERN apps, GIS platforms, and secure recruitment systems."
+                },
+                {
+                  role: "Software Web Developer Intern",
+                  company: "OTET Infosystems",
+                  duration: "7 Months",
+                  desc: "Developed 10+ responsive websites via WordPress and React.js with FTP deployments."
+                },
+                {
+                  role: "Trainee Research Engineer",
+                  company: "Adani Dahanu Thermal Power",
+                  duration: "1 Month",
+                  desc: "System analysis and process optimization in large-scale engineering operations."
+                },
+                {
+                  role: "Operational Trainee Engineer",
+                  company: "P.M. Electro-Auto Pvt. Ltd",
+                  duration: "40 Days",
+                  desc: "Troubleshooting and operational analysis, strengthening problem-solving skills."
+                }
+              ].map((exp, i) => (
+                <div key={i} className="relative pl-8 md:pl-0 group/item">
+                  <div className={`md:flex flex-col ${i % 2 === 0 ? 'md:items-end md:text-right md:pr-12' : 'md:items-start md:text-left md:pl-12'}`}>
+                    <span className="text-[10px] font-mono text-spotify-green bg-spotify-green/10 px-2 py-1 rounded mb-2 inline-block italic">
+                      {exp.duration}
+                    </span>
+                    <h4 className="text-white font-bold text-lg">{exp.role}</h4>
+                    <p className="text-spotify-green/80 text-sm font-medium mb-2 flex items-center gap-2 justify-end">
+                      <FaBuilding size={12} /> {exp.company}
+                    </p>
+                    <p className="text-spotify-grey text-sm leading-relaxed max-w-md">
+                      {exp.desc}
+                    </p>
+                  </div>
+                  {/* Circle indicator on the line */}
+                  <div className="absolute left-0 md:left-1/2 top-1 md:-translate-x-1/2 w-4 h-4 rounded-full bg-spotify-dark border-2 border-spotify-green group-hover/item:scale-125 transition-transform" />
+                </div>
+              ))}
+            </div>
+          </BentoCard>
+
+          {/* CARD 4: SKILLS & PARTICIPATIONS */}
+          <BentoCard className="lg:col-span-7" delay={0.4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                  <FaLaptopCode className="text-spotify-green" /> Skills Acquired
+                </h3>
+                <ul className="space-y-3">
+                  {[
+                    { text: "Leadership & Communication", icon: FaCompass },
+                    { text: "Problem Solving", icon: FaLightbulb },
+                    { text: "Photography & Canva", icon: SiCanva },
+                    { text: "UI/UX Design (Figma)", icon: FaFigma }
+                  ].map((s, i) => (
+                    <li key={i} className="flex items-center gap-3 text-spotify-grey text-sm">
+                      <s.icon className="text-spotify-green text-xs" /> {s.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                  <FaTrophy className="text-spotify-green" /> Participations
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    "Robotics Workshop (Automation/Sensors)",
+                    "Smart Dishwasher (State-Level Competition)",
+                    "IoT Virtual Doctor (Technical Paper)",
+                    "DJ Strike (Technical Competition)"
+                  ].map((p, i) => (
+                    <div key={i} className="flex gap-3">
+                      <FaCheck className="text-spotify-green mt-1 shrink-0 size-3" />
+                      <p className="text-spotify-grey text-xs leading-snug">{p}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </BentoCard>
+
+          {/* CARD 5: HOBBIES */}
+          <BentoCard className="lg:col-span-5" delay={0.5}>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white">
+                <FaPalette size={18} />
+              </div>
+              <h3 className="text-xl font-bold tracking-tight text-white">Interests</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { icon: FaEarthAmericas, text: "Traveling" },
+                { icon: FaCameraRetro, text: "Moments" },
+                { icon: FaPalette, text: "Sketching" },
+                { icon: FaFeatherPointed, text: "Poetry" }
+              ].map((h, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-spotify-green/20 transition-all">
+                  <h.icon className="text-spotify-green" />
+                  <span className="text-spotify-grey text-[11px] font-medium">{h.text}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-spotify-grey/50 text-[10px] mt-6 italic text-center">
+              "Capturing raw moments and expressing thoughts through art."
+            </p>
+          </BentoCard>
 
         </div>
       </div>
+      
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 3s infinite linear;
+        }
+      `}</style>
     </section>
   );
 };

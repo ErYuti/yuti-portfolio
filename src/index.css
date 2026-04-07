@@ -136,3 +136,26 @@ img {
 @layer base {
   body { @apply bg-spotify-black text-white overflow-x-hidden; }
 }
+
+/* AI Text Gradient Effect */
+.ai-text-gradient {
+  background: linear-gradient(
+    90deg, 
+    #1DB954 0%, 
+    #a855f7 33%, 
+    #1DB954 66%, 
+    #a855f7 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-gradient 4s linear infinite;
+  text-shadow: 0 0 20px rgba(29, 185, 84, 0.2);
+}
+
+@keyframes shimmer-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import yutiLogo from "../assets/yuti-logo.png"; // Import your logo here
 
 const Preloader = () => {
   return (
@@ -10,19 +11,28 @@ const Preloader = () => {
       className="fixed inset-0 z-[100] bg-spotify-black flex flex-col items-center justify-center"
     >
       <div className="relative">
+        {/* Spinning Outer Circle */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           className="w-32 h-32 border-2 border-spotify-green/20 rounded-full border-t-spotify-green"
         />
+        
+        {/* Center Logo Image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="absolute inset-0 flex items-center justify-center font-black text-spotify-green text-3xl italic"
+          className="absolute inset-0 flex items-center justify-center"
         >
-          MK.
+          <img 
+            src={yutiLogo} 
+            alt="Yuti Logo" 
+            className="w-16 h-16 object-cover rounded-full border border-spotify-green/30"
+          />
         </motion.div>
       </div>
+
+      {/* Loading Line and Text */}
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: 200 }}

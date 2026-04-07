@@ -1,101 +1,110 @@
 import React from "react";
 import { motion } from "motion/react";
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaGithub, FaWordpress } from "react-icons/fa6";
 import { AnimatedText, TiltCard } from "./HelperComponents";
 
-const PROJECTS = [
+// --- DATA ARRAYS ---
+const FEATURED_PROJECTS = [
   {
     id: "01",
-    title: "Streamify",
-    description: "A React-based application utilizing the YouTube Data API and Redux Toolkit. Features intuitive interface with dynamic video search and real-time playback.",
-    image: "https://picsum.photos/seed/stream/800/500", // Replace with your project screenshot
-    tags: ["React", "Redux", "YouTube API", "Tailwind"],
-    live: "#"
+    title: "Real-Time Chat App",
+    description: "A secure MERN stack chat application supporting persistent messaging and user presence tracking. Implemented low-latency WebSocket communication for real-time data exchange and designed a scalable backend architecture to handle multi-user interactions efficiently.",
+    image: "https://picsum.photos/seed/chat/800/500", // Replace with your screenshot
+    tags: ["MERN", "Socket.io", "Node.js", "Express", "MongoDB"],
+    live: "#",
+    github: "#"
   },
   {
     id: "02",
-    title: "GIS Platform",
-    description: "Visualizing and processing 50GB+ geospatial datasets for enterprise use cases with high-performance mapping tools.",
-    image: "https://picsum.photos/seed/gis/800/500",
-    tags: ["MERN", "MongoDB", "GIS", "Node.js"],
-    live: "#"
-  }
+    title: "NewsListing WebApp",
+    description: "A responsive News Listing Web App that fetches and displays real-time news articles via a public API. Features include dynamic search, category filtering, a top headlines section, dark mode, loading states, and a mobile-first design.",
+    image: "https://picsum.photos/seed/news/800/500", // Replace with your screenshot
+    tags: ["React.js", "Tailwind CSS", "Fetch API", "State Management"],
+    live: "#",
+    github: "#"
+  },
+
 ];
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-40 px-6 bg-spotify-black">
+    <section id="projects" className="py-32 md:py-48 px-6 bg-spotify-black relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-spotify-green/5 blur-[150px] rounded-full pointer-events-none" />
+
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="flex items-center gap-6 mb-32">
-          <AnimatedText 
-            text="</Projects>" 
-            className="text-5xl md:text-7xl font-black italic tracking-tighter" 
+
+        {/* ================= FEATURED PROJECTS SECTION ================= */}
+        <div className="flex items-center gap-6 mb-24 md:mb-32">
+          <AnimatedText
+            text="</Featured_Work>"
+            className="text-5xl md:text-7xl font-black italic tracking-tighter"
           />
-          <div className="h-[1px] bg-gradient-to-r from-spotify-green to-transparent flex-1 opacity-20" />
+          <motion.div
+            initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1 }}
+            className="h-[1px] bg-gradient-to-r from-spotify-green to-transparent flex-1 opacity-20"
+          />
         </div>
 
-        <div className="space-y-40">
-          {PROJECTS.map((project, index) => (
-            <motion.div 
+        <div className="space-y-32 md:space-y-48 mb-48">
+          {FEATURED_PROJECTS.map((project, index) => (
+            <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 lg:gap-20 items-center`}
+              className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-10 lg:gap-16 items-center`}
             >
-              {/* LEFT: Project Image with Zoom Effect */}
+              {/* LEFT/RIGHT: Project Image */}
               <div className="flex-1 w-full group">
                 <TiltCard>
-                  <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl aspect-[16/10]">
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
+                  <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] aspect-[16/10] group-hover:border-spotify-green/40 transition-colors duration-500">
+                    <img
+                      src={project.image}
+                      alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
-                    {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-spotify-green/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </TiltCard>
               </div>
 
-              {/* RIGHT: Project Details */}
+              {/* RIGHT/LEFT: Project Details */}
               <div className="flex-1 w-full space-y-8">
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <p className="text-spotify-green font-mono font-bold tracking-[0.4em] uppercase text-sm">
-                    Project {project.id}
+                    Featured Project {project.id}
                   </p>
-                  <h3 className="text-5xl md:text-7xl font-black italic tracking-tight text-white">
+                  <h3 className="text-4xl md:text-6xl font-black tracking-tight text-white">
                     {project.title}
                   </h3>
                 </div>
 
-                <p className="text-spotify-grey text-lg md:text-xl leading-relaxed max-w-xl">
+                <p className="text-spotify-grey text-base md:text-lg leading-relaxed max-w-xl">
                   {project.description}
                 </p>
 
                 {/* Tech Stack Pills */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span 
-                      key={tag} 
-                      className="px-5 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-widest text-spotify-grey hover:border-spotify-green hover:text-white transition-all cursor-none"
-                    >
+                    <span key={tag} className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-xs font-bold uppercase tracking-widest text-spotify-grey hover:border-spotify-green hover:text-white transition-all cursor-default">
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* View Project Button */}
-                <div className="pt-4">
-                  <a 
-                    href={project.live} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 w-full md:w-fit md:min-w-[300px] bg-spotify-green hover:bg-[#1ed760] text-black font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_10px_20px_rgba(29,185,84,0.2)] uppercase tracking-tighter text-sm"
+                {/* Buttons: Live Demo & GitHub */}
+                <div className="pt-4 flex flex-wrap gap-4">
+                  <a href={project.live} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-spotify-green hover:bg-[#1ed760] text-black font-bold py-3 px-6 rounded-full transition-all duration-300 hover:scale-[1.02] shadow-[0_10px_20px_rgba(29,185,84,0.2)] uppercase tracking-widest text-xs"
                   >
-                    View Project <FaArrowUpRightFromSquare className="text-sm" />
+                    Live Demo <FaArrowUpRightFromSquare />
+                  </a>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-transparent border border-white/20 hover:border-white hover:bg-white/5 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 hover:scale-[1.02] uppercase tracking-widest text-xs"
+                  >
+                    Source Code <FaGithub className="text-lg" />
                   </a>
                 </div>
               </div>
