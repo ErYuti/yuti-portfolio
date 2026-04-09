@@ -142,17 +142,15 @@ const Contact = () => {
       {/* HEADER SECTION */}
       <div className="z-20 flex flex-col items-center text-center px-4 max-w-xl">
         <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} className="px-5 py-2 mb-2">
-          <p className="text-white font-mono text-sm md:text-base tracking-tight opacity-60 italic">
+          <p className="font-mono text-sm md:text-base tracking-tight italic text-text-main opacity-60">
             "Learning, Living, and Leveling Up."
           </p>
         </motion.div>
 
         {/* Dynamic Title Color */}
-        <h2
-          className="font-mono text-3xl md:text-4xl font-bold mb-6 tracking-tight transition-colors duration-500"
-          style={{ color: accentColor }}
-        >
-          GetInTouch<span className="text-white">();</span>
+        <h2 className="font-mono text-3xl md:text-4xl font-bold mb-6 tracking-tight transition-colors duration-500"
+          style={{ color: accentColor }}>
+          GetInTouch<span className="text-text-main">();</span>
         </h2>
 
         {/* Social Icons with Dynamic Hover */}
@@ -196,15 +194,18 @@ const Contact = () => {
       </div>
 
       {/* FOOTER */}
-      <footer className="w-full py-6 bg-[#050505] flex flex-col items-center justify-center border-t border-white/5">
-        <div className="flex flex-wrap justify-center gap-[0.1em] px-10 text-center">
+      <footer className="w-full py-6 bg-spotify-black flex flex-col items-center justify-center border-t border-border-subtle">
+        <div className="flex flex-wrap justify-center gap-[0.1em] px-10">
           {footerText.split("").map((char, i) => (
-            <span key={i} className="font-mono text-[8px] md:text-[9px] tracking-[0.2em] text-white/20 uppercase">
+            <span
+              key={i}
+              className="font-mono text-[8px] md:text-[9px] tracking-[0.25em] text-text-main opacity-30 uppercase"
+            >
               {char === " " ? "\u00A0" : char}
             </span>
           ))}
         </div>
-        <p className="mt-2 text-[9px] text-white/10 font-mono tracking-widest uppercase">
+        <p className="mt-2 text-[9px] text-text-main opacity-20 font-mono tracking-widest uppercase">
           created by yutimeher
         </p>
       </footer>

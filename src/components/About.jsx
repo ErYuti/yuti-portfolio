@@ -15,13 +15,13 @@ const BentoCard = ({ children, className, delay = 0 }) => (
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    className={`group relative overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 hover:border-spotify-green/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(29,185,84,0.15)] ${className}`}
+    className={`group relative overflow-hidden rounded-3xl p-8 border transition-all duration-500 
+      bg-spotify-dark border-border-subtle hover:border-main/50 ${className}`}
   >
-    <div className="absolute -inset-full bg-gradient-to-r from-transparent via-spotify-green/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer transition-opacity duration-1000 -z-10" />
     {children}
   </motion.div>
 );
+
 
 const About = () => {
   return (
@@ -56,7 +56,7 @@ const About = () => {
                 <h3 className="text-2xl font-bold tracking-tight text-white">Who I Am</h3>
               </div>
               <p className="text-spotify-grey text-base md:text-lg leading-relaxed mb-6">
-                I’m <span className="text-white font-bold">Yuti Meher</span>, a highly motivated <span className="text-spotify-green">Full Stack Web Developer</span>.
+                I’m <span className="text-text-main font-bold">Yuti Meher</span>, a highly motivated <span className="text-spotify-green">Full Stack Web Developer</span>.
                 I specialize in building scalable web architectures using the <span className="text-white">MERN stack</span>, focusing on high-performance API design and seamless client-side integration.
               </p>
               <p className="text-spotify-grey text-base md:text-lg leading-relaxed">
@@ -86,7 +86,7 @@ const About = () => {
               <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white">
                 <FaGraduationCap size={24} />
               </div>
-              <h3 className="text-xl font-bold tracking-tight text-white">Education</h3>
+              <h3 className="text-xl font-bold tracking-tight text-text-main">Education</h3>
             </div>
             <div className="space-y-6">
               {[
@@ -96,7 +96,7 @@ const About = () => {
               ].map((edu, idx) => (
                 <div key={idx} className="group/edu">
                   <h4 className="text-spotify-green font-bold text-sm">{edu.title}</h4>
-                  <p className="text-white/70 text-xs mt-1 leading-tight">{edu.school}</p>
+                  <p className="text-text-main/70 text-xs mt-1 leading-tight">{edu.school}</p>
                   <p className="text-spotify-grey text-[10px] font-mono mt-1">{edu.result}</p>
                   {idx !== 2 && <div className="w-full h-[1px] bg-white/5 mt-4" />}
                 </div>
@@ -156,7 +156,7 @@ const About = () => {
                       <span className="text-[10px] font-mono text-spotify-green bg-spotify-green/10 px-2 py-1 rounded inline-block mb-2">
                         {exp.duration}
                       </span>
-                      <h4 className="text-white font-bold text-lg">{exp.role}</h4>
+                      <h4 className="text-text-main font-bold text-lg">{exp.role}</h4>
                       <p className="text-spotify-green/80 text-sm font-medium mb-2 flex items-center gap-2 md:justify-end">
                         <FaBuilding size={12} /> {exp.company}
                       </p>
@@ -177,7 +177,7 @@ const About = () => {
           <BentoCard className="lg:col-span-7" delay={0.4}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-text-main mb-6 flex items-center gap-2">
                   <FaLaptopCode className="text-spotify-green" /> Skills Acquired
                 </h3>
                 <ul className="space-y-3">
@@ -187,7 +187,7 @@ const About = () => {
                     { text: "Photography & Canva", icon: SiCanva },
                     { text: "UI/UX Design (Figma)", icon: FaFigma }
                   ].map((s, i) => (
-                    <li key={i} className="flex items-center gap-3 text-spotify-grey text-sm">
+                    <li className="flex items-center gap-3 text-spotify-grey text-sm">
                       <s.icon className="text-spotify-green text-xs" /> {s.text}
                     </li>
                   ))}

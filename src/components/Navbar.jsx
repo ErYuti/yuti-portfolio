@@ -49,21 +49,20 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-[100]">
-      <div 
-        className={`glass-pill px-6 md:px-10 py-4 flex justify-between items-center ${
-          scrolled ? "bg-black/80 py-3" : "bg-black/20"
-        }`}
+      <div
+        className={`glass-pill px-6 md:px-10 py-4 flex justify-between items-center ${scrolled ? "bg-black/80 py-3" : "bg-black/20"
+          }`}
       >
         {/* LEFT SIDE: LOGO */}
         <div className="flex items-center gap-4 group">
           <div className="w-10 h-10 rounded-full border-2 border-spotify-green overflow-hidden transition-transform group-hover:rotate-12">
-            <img 
-              src= {yutiLogo}
-              alt="Logo" 
+            <img
+              src={yutiLogo}
+              alt="Logo"
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="text-white font-black tracking-tighter text-xl hidden sm:block">
+          <span className="font-black tracking-tighter text-xl hidden sm:block text-text-main">
             YUTI<span className="text-spotify-green">.</span>
           </span>
         </div>
@@ -74,12 +73,11 @@ const Navbar = () => {
             <a
               key={link.id}
               href={`#${link.id}`}
-              className={`text-[11px] md:text-[13px] tracking-[0.2em] transition-all duration-300 relative py-1 ${
-                activeSection === link.id ? "text-spotify-green" : "text-white/50 hover:text-white"
-              }`}
+              className={`text-[11px] md:text-[13px] tracking-[0.2em] transition-all duration-300 relative py-1 ${activeSection === link.id ? "text-spotify-green" : "opacity-50 hover:opacity-100 text-text-main"
+                }`}
             >
               {link.name}
-              
+
               {/* Animated Underline for Active Section */}
               {activeSection === link.id && (
                 <motion.div

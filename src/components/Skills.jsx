@@ -63,7 +63,7 @@ const SkillCard = ({ skill, index }) => {
           style={{ color: "var(--icon-color, #b3b3b3)" }}
         />
 
-        <span className="text-[10px] md:text-xs font-mono tracking-[0.2em] text-spotify-grey uppercase group-hover:text-white transition-colors text-center">
+        <span className="text-[10px] md:text-xs font-mono tracking-[0.2em] text-text-main uppercase group-hover:text-main transition-colors text-center">
           {skill.name}
         </span>
 
