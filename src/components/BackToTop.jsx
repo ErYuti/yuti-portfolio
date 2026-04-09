@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { FaArrowUp } from "react-icons/fa6";
+import { useTheme } from "../context/ThemeContext";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { accentColor } = useTheme();
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      // Show button after scrolling 600px
-      setIsVisible(window.scrollY > 600);
-    };
+    const toggleVisibility = () => setIsVisible(window.scrollY > 600);
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
-          onClick={scrollToTop}
-          className="fixed bottom-10 right-8 z-[100] group flex flex-col items-center gap-2"
+          // SAME RIGHT-8 AS THEME CONTROLLER
+          className="fixed bottom-8 right-8 z-[100] flex flex-col items-center gap-2"
         >
-          {/* The Glow Effect Container */}
-          <div className="relative w-12 h-12 rounded-full bg-spotify-black border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-main group-hover:shadow-[0_0_20px_rgba(29,185,84,0.3)]">
-            <FaArrowUp className="text-white group-hover:text-main transition-colors duration-300" />
+          <button
+            onClick={scrollToTop}
+            // SAME W-12 AS THEME CONTROLLER
+            className="w-12 h-12 rounded-full bg-spotify-dark border border-border-subtle flex items-center justify-center transition-all duration-300 group hover:border-main hover:shadow-[0_0_15px_rgba(29,185,84,0.2)]"
+          >
+            <FaArrowUp
+              size={16}
+              className="text-white transition-colors duration-300"
+              style={{ color: accentColor }}
+            />
+          </button>
 
-            {/* Subtle rotating ring */}
-            <div className="absolute inset-0 rounded-full border-t-2 border-main animate-spin opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </div>
-
-          {/* Text label that fades on hover */}
-          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/30 group-hover:text-main transition-colors">
+          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/30">
             Top
           </span>
-        </motion.button>
+        </motion.div>
       )}
     </AnimatePresence>
   );

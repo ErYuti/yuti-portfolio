@@ -1,21 +1,18 @@
 import React from "react";
 import { motion } from "motion/react";
-// Using a mix of libraries to ensure maximum compatibility and no more "Missing Export" errors
-import { 
-  SiReact, SiNodedotjs, SiJavascript, SiNextdotjs, 
-  SiTailwindcss, SiMongodb, SiExpress, SiMysql, 
-  SiGit, SiGithub, SiPostman, SiWordpress, 
+import {
+  SiReact, SiNodedotjs, SiJavascript, SiNextdotjs,
+  SiTailwindcss, SiMongodb, SiExpress, SiMysql,
+  SiGit, SiGithub, SiPostman, SiWordpress,
   SiFigma, SiBootstrap, SiCanva, SiFilezilla
 } from "react-icons/si";
 import { FaHtml5, FaCss3Alt, FaTerminal, FaChrome } from "react-icons/fa";
-import { VscVscode } from "react-icons/vsc"; // More stable export for VS Code
+import { VscVscode } from "react-icons/vsc";
 import { DiResponsive } from "react-icons/di";
 import { MdOutlineApi } from "react-icons/md";
-
 import { AnimatedText } from "./HelperComponents";
 
 const SKILLS = [
-  // --- Programming & Frontend ---
   { name: "HTML5", icon: FaHtml5, color: "#E34F26" },
   { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
   { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
@@ -24,22 +21,16 @@ const SKILLS = [
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
   { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
   { name: "Responsive Design", icon: DiResponsive, color: "#4ade80" },
-  
-  // --- Backend & Database ---
   { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
   { name: "Express.js", icon: SiExpress, color: "#FFFFFF" },
   { name: "API Design", icon: MdOutlineApi, color: "#00ffcc" },
   { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
   { name: "MySQL", icon: SiMysql, color: "#4479A1" },
-  
-  // --- Version Control & Tools ---
   { name: "Git", icon: SiGit, color: "#F05032" },
   { name: "GitHub", icon: SiGithub, color: "#FFFFFF" },
   { name: "VS Code", icon: VscVscode, color: "#007ACC" },
   { name: "Postman", icon: SiPostman, color: "#FF6C37" },
   { name: "DevTools", icon: FaChrome, color: "#4285F4" },
-  
-  // --- Platforms & Design ---
   { name: "WordPress", icon: SiWordpress, color: "#21759B" },
   { name: "FileZilla", icon: SiFilezilla, color: "#BF0000" },
   { name: "Terminal", icon: FaTerminal, color: "#4EAA25" },
@@ -55,35 +46,39 @@ const SkillCard = ({ skill, index }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       className="group relative"
+      // Setting a CSS variable for the brand color locally
+      style={{ "--brand-color": skill.color }}
     >
-      {/* Background Hover Glow */}
-      <div 
-        className="absolute inset-0 bg-spotify-green/0 group-hover:bg-spotify-green/5 blur-2xl transition-all duration-700 rounded-3xl" 
+      {/* Background Hover Glow - Matches brand color */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-700 rounded-3xl"
+        style={{ backgroundColor: "var(--brand-color)" }}
       />
-      
-      <div className="relative bg-spotify-dark border border-white/5 p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center gap-4 transition-all duration-500 group-hover:border-spotify-green/40 group-hover:-translate-y-3 group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]">
-        
-        {/* The Icon - Color changes on hover via the styled-jsx below */}
-        <skill.icon 
-          className="text-5xl md:text-6xl transition-all duration-500 text-spotify-grey group-hover:scale-125" 
+
+      <div className="relative bg-spotify-dark border border-white/5 p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center gap-4 transition-all duration-500 group-hover:border-[var(--brand-color)]/40 group-hover:-translate-y-3 group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)]">
+
+        {/* ICON: Changes from grey to brand color on hover */}
+        <skill.icon
+          className="text-5xl md:text-6xl transition-all duration-500 text-spotify-grey group-hover:scale-125"
+          style={{ color: "var(--icon-color, #b3b3b3)" }}
         />
-        
+
         <span className="text-[10px] md:text-xs font-mono tracking-[0.2em] text-spotify-grey uppercase group-hover:text-white transition-colors text-center">
           {skill.name}
         </span>
 
-        {/* Dynamic bottom glow line */}
-        <div 
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] transition-all duration-500 group-hover:w-1/2" 
-          style={{ backgroundColor: skill.color }}
+        {/* UNDERLINE: Matches brand color */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] transition-all duration-500 group-hover:w-1/2"
+          style={{ backgroundColor: "var(--brand-color)" }}
         />
       </div>
 
-      {/* Scoped CSS to apply the specific brand color ONLY on hover */}
+      {/* Modern Tailwind/CSS Logic to apply the color to the icon */}
       <style jsx>{`
         .group:hover :global(svg) {
-          color: ${skill.color} !important;
-          filter: drop-shadow(0 0 12px ${skill.color}88);
+          color: var(--brand-color) !important;
+          filter: drop-shadow(0 0 8px var(--brand-color));
         }
       `}</style>
     </motion.div>
@@ -101,11 +96,11 @@ const Skills = () => {
         {/* Header Section */}
         <div className="flex flex-col gap-6 mb-24">
           <div className="flex items-center gap-8">
-            <AnimatedText 
-              text="</Expertise>" 
-              className="text-5xl md:text-8xl font-black italic tracking-tighter" 
+            <AnimatedText
+              text="</Expertise>"
+              className="text-5xl md:text-8xl font-black italic tracking-tighter"
             />
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: "100%" }}
               transition={{ duration: 1.5, ease: "circOut" }}

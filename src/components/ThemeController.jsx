@@ -1,55 +1,55 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { FaGear, FaPalette, FaVolumeHigh, FaVolumeXmark, FaRobot, FaWhatsapp } from "react-icons/fa6";
+import { FaGear, FaSun, FaMoon, FaWhatsapp } from "react-icons/fa6";
+import { useTheme } from "../context/ThemeContext";
 
 const ThemeController = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const { isDarkMode, toggleThemeMode, changeAccentColor, accentColor } = useTheme();
 
-  const toggleColor = () => {
-    const colors = ["#1DB954", "#3d5afe", "#d500f9", "#ff3d00"];
-    const current = document.documentElement.style.getPropertyValue("--primary-color") || "#1DB954";
-    const nextIdx = (colors.indexOf(current) + 1) % colors.length;
-    document.documentElement.style.setProperty("--primary-color", colors[nextIdx]);
-  };
-
-  const menuItems = [
-    { icon: <FaPalette />, action: toggleColor },
-    { icon: isMuted ? <FaVolumeXmark /> : <FaVolumeHigh />, action: () => setIsMuted(!isMuted) },
-    { icon: <FaRobot />, action: () => alert("AI Chat Coming Soon") },
-    { icon: <FaWhatsapp />, action: () => window.open("https://wa.me/918208375264") },
+  const colors = [
+    { name: "Green", hex: "#1DB954" },
+    { name: "Blue", hex: "#3d5afe" },
+    { name: "Purple", hex: "#a855f7" },
+    { name: "Orange", hex: "#ff3d00" },
   ];
 
   return (
-    <div className="fixed bottom-30 right-7 z-[100] flex flex-col items-center gap-3">
-      {/* Expanding Menu */}
+    <div className="fixed bottom-28 right-8 z-[101] flex flex-col items-center">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="bg-[#0a0a0a] p-2 rounded-3xl border border-white/10 flex flex-col gap-2 shadow-2xl"
+            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+            className="bg-spotify-dark p-2 rounded-2xl border border-border-subtle flex flex-col gap-2 shadow-2xl mb-3 w-12 items-center"
           >
-            {menuItems.map((item, i) => (
+            <button onClick={toggleThemeMode} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white transition-all text-xs">
+              {isDarkMode ? <FaSun /> : <FaMoon />}
+            </button>
+
+            {colors.map((color) => (
               <button
-                key={i}
-                onClick={item.action}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 hover:bg-main text-white transition-all"
-              >
-                {item.icon}
-              </button>
+                key={color.hex}
+                onClick={() => changeAccentColor(color.hex)}
+                className={`w-7 h-7 rounded-full border-2 transition-all ${accentColor === color.hex ? "border-white scale-110" : "border-transparent"}`}
+                style={{ backgroundColor: color.hex }}
+              />
             ))}
+
+            <button onClick={() => window.open("https://wa.me/918208375264")} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white transition-all text-xs">
+              <FaWhatsapp />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main Gear Toggle */}
+      {/* Main Gear Button - Aligned to w-12 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-[#0a0a0a] border border-white/10 flex items-center justify-center text-white hover:border-main transition-all shadow-lg"
+        className="w-12 h-12 rounded-full bg-spotify-dark border border-border-subtle flex items-center justify-center text-white transition-all shadow-lg overflow-hidden"
       >
-        <FaGear size={22} className={isOpen ? "animate-spin" : ""} />
+        <FaGear size={18} className={isOpen ? "animate-spin" : ""} style={{ color: accentColor }} />
       </button>
     </div>
   );
