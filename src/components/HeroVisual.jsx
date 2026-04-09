@@ -4,7 +4,7 @@ import { MeshDistortMaterial, Sphere, Float } from "@react-three/drei";
 
 const Blob = () => {
   const mesh = useRef();
-  
+
   useFrame((state) => {
     mesh.current.distort = 0.4 + Math.sin(state.clock.getElapsedTime()) * 0.2;
   });
@@ -28,8 +28,17 @@ const HeroVisual = () => {
     <div className="canvas-container relative">
       {/* Background glow for the 3D element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-spotify-green/20 blur-[120px] rounded-full" />
-      
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+
+      <Canvas
+        shadows={false} // Disable shadows for performance
+        dpr={[1, 2]}    // Limits pixel ratio on high-res screens to save GPU
+        gl={{
+          antialias: true,
+          powerPreference: "high-performance",
+          alpha: true
+        }}
+        camera={{ position: [0, 0, 5], fov: 45 }}
+      >
         <ambientLight intensity={1} />
         <directionalLight position={[10, 10, 5]} intensity={2} />
         <pointLight position={[-10, -10, -10]} color="#1DB954" intensity={1} />

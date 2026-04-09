@@ -11,13 +11,37 @@
   --color-spotify-dark: #121212;
   --color-spotify-grey: #b3b3b3;
   --color-accent-purple: #a855f7;
-   --color-main: var(--primary-color);
-  --color-spotify-black: var(--bg-black);
+  --color-main: var(--primary-color);
 }
 
-/* Force hide cursor on everything */
+/* --- PERFORMANCE OPTIMIZATIONS --- */
+
+/* Optimization: Prevents the browser from rendering off-screen sections until needed */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px;
+}
+
+/* Force GPU acceleration for smooth animations */
+.bg-moving-gradient, 
+.cursor-dot, 
+.cursor-outline,
+.char-hover {
+  will-change: transform;
+}
+
+/* Ensure images stay sharp and use GPU rendering */
+img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+}
+
+/* --- GLOBAL BASE STYLES --- */
+
 * {
-  cursor: none !important;
+  cursor: none !important; /* Force hide cursor on everything */
 }
 
 @layer base {
@@ -25,18 +49,19 @@
     scroll-behavior: smooth;
   }
   body {
-    /* Use standard CSS properties instead of @apply to avoid Vite errors */
     background-color: #080808; 
     color: white;
     font-family: sans-serif;
     overflow-x: hidden;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* --- YOUR ORIGINAL FEATURES --- */
+/* --- ANIMATED FEATURES --- */
 
-/* Moving Background Gradient */
+/* Moving Background Gradient (Hero Section) */
 .bg-moving-gradient {
   background: linear-gradient(-45deg, #080808, #121212, #1db95422, #080808);
   background-size: 400% 400%;
@@ -49,92 +74,13 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Character Hover Effect (Hero Section) */
+/* Character Hover Effect (Hero/Projects) */
 .char-hover {
-  @apply inline-block transition-all duration-300 cursor-none;
+  @apply inline-block transition-all duration-300;
 }
 .char-hover:hover {
   color: #1DB954;
   transform: translateY(-10px) scale(1.2);
-}
-
-/* Stacked Button Style (Hero/About) */
-.btn-stack-container {
-  @apply relative inline-block;
-}
-.btn-stack-bg {
-  @apply absolute inset-0 bg-spotify-green translate-x-1.5 translate-y-1.5 rounded-full transition-transform duration-200;
-}
-.btn-stack-container:hover .btn-stack-bg {
-  @apply translate-x-0 translate-y-0;
-}
-.btn-stack-top {
-  @apply relative bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 px-10 rounded-full transition-all active:translate-x-1 active:translate-y-1;
-}
-
-/* Custom Cursor Elements */
-.cursor-dot {
-  @apply fixed top-0 left-0 w-2 h-2 bg-spotify-green rounded-full pointer-events-none z-[99999];
-  transform: translate(-50%, -50%);
-}
-.cursor-outline {
-  @apply fixed top-0 left-0 w-10 h-10 border border-spotify-green rounded-full pointer-events-none z-[99998] mix-blend-difference;
-  transform: translate(-50%, -50%);
-}
-
-/* --- NEW CONTACT SECTION STYLES --- */
-
-.purple-glow-bg {
-  background: linear-gradient(to top, rgba(168, 85, 247, 0.15), transparent);
-}
-
-.glass-pill {
-  @apply bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl;
-}
-
-/* Windows Style Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-black);
-}
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 10px;
-  border: 2px solid var(--bg-black);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
-}
-/* Add this to your index.css */
-
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-/* Ensure the avatar stays sharp */
-img {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-/* Custom Cursor fix for footer */
-#contact button:hover ~ .cursor-outline {
-  border-color: #a855f7 !important;
-  transform: scale(1.5);
-}
-
-/* 2. GLASS CARD EFFECT */
-.glass-card {
-  @apply bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-white/20;
-}
-
-/* Hide default cursor */
-* { cursor: none !important; }
-
-@layer base {
-  body { @apply bg-spotify-black text-white overflow-x-hidden; }
 }
 
 /* AI Text Gradient Effect */
@@ -160,27 +106,79 @@ img {
   100% { background-position: 0% 50%; }
 }
 
-/* 1. The Scrollbar Width */
+/* --- BUTTONS & CARDS --- */
+
+/* Stacked Button Style */
+.btn-stack-container {
+  @apply relative inline-block;
+}
+.btn-stack-bg {
+  @apply absolute inset-0 bg-spotify-green translate-x-1.5 translate-y-1.5 rounded-full transition-transform duration-200;
+}
+.btn-stack-container:hover .btn-stack-bg {
+  @apply translate-x-0 translate-y-0;
+}
+.btn-stack-top {
+  @apply relative bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 px-10 rounded-full transition-all active:translate-x-1 active:translate-y-1;
+}
+
+/* Glass UI Elements */
+.glass-pill {
+  @apply bg-black/40 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl;
+}
+
+.glass-card {
+  @apply bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl transition-all duration-500 hover:bg-white/10 hover:border-white/20;
+}
+
+.purple-glow-bg {
+  background: linear-gradient(to top, rgba(168, 85, 247, 0.15), transparent);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* --- CUSTOM CURSOR (Used by CustomCursor.jsx) --- */
+.cursor-dot {
+  @apply fixed top-0 left-0 w-2 h-2 bg-spotify-green rounded-full pointer-events-none z-[99999];
+  transform: translate(-50%, -50%);
+}
+.cursor-outline {
+  @apply fixed top-0 left-0 w-10 h-10 border border-spotify-green rounded-full pointer-events-none z-[99998] mix-blend-difference;
+  transform: translate(-50%, -50%);
+}
+
+/* --- CUSTOM SCROLLBAR (Spotify Style) --- */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
-
-/* 2. The Track (The background area) */
 ::-webkit-scrollbar-track {
-  background: #080808; /* Matches your bg-spotify-black */
+  background: #080808;
 }
-
-/* 3. The Thumb (The draggable part) */
 ::-webkit-scrollbar-thumb {
-  background: #222; /* A slightly lighter grey than the background */
+  background: #222; 
   border-radius: 10px;
-  border: 1px solid #1a1a1a;
+  border: 2px solid #080808;
   transition: all 0.3s ease;
 }
-
-/* 4. The Hover Effect (The "Spotify Green" glow) */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color); /* Uses your primary-color variable */
-  box-shadow: 0 0 10px var(--primary-color); /* Adds the AI-glow effect */
-  cursor: pointer;
+  background: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Shimmer animation for Bento cards */
+@keyframes bento-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-shimmer {
+  animation: bento-shimmer 3s infinite linear;
+}
+
+/* Footer Cursor Fix */
+#contact button:hover ~ .cursor-outline {
+  border-color: #a855f7 !important;
+  transform: scale(1.5);
 }

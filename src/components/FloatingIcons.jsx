@@ -52,7 +52,7 @@ const FloatingIcons = () => {
       {icons.map((item, i) => (
         <motion.div
           key={i}
-          className="absolute pointer-events-auto"
+          className="absolute pointer-events-auto will-change-transform" // Added will-change
           style={{
             top: item.pos.top,
             left: item.pos.left,

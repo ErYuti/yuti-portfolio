@@ -53,7 +53,8 @@ const Projects = () => {
         <div className="space-y-24 mb-32">
           {FEATURED.map((proj, i) => (
             <div key={proj.id} className="flex flex-col lg:flex-row gap-12 items-center">
-              <div className="flex-1 w-full"><TiltCard><div className="rounded-[2rem] overflow-hidden border border-white/10"><img src={proj.image} className="w-full aspect-video object-cover" /></div></TiltCard></div>
+              <div className="flex-1 w-full"><TiltCard><div className="rounded-[2rem] overflow-hidden border border-white/10"><img src={proj.image} loading="lazy" className="w-full aspect-video object-cover" />
+              </div></TiltCard></div>
               <div className="flex-1 space-y-6">
                 <h3 className="text-4xl font-black">{proj.title}</h3>
                 <p className="text-spotify-grey leading-relaxed">{proj.description}</p>
@@ -70,7 +71,7 @@ const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {MINI.map((proj, i) => (
             <motion.div key={i} whileHover={{ y: -5 }} className="group bg-white/5 border border-white/5 rounded-3xl overflow-hidden hover:border-spotify-green/30 transition-all">
-              <img src={proj.img} className="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+              <img src={proj.img} loading="lazy" className="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
               <div className="p-6">
                 <h4 className="font-bold text-white mb-4">{proj.title}</h4>
                 <a href={proj.live} className="text-spotify-green text-xs font-bold uppercase hover:underline">View Project →</a>
